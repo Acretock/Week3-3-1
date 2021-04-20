@@ -1,20 +1,53 @@
-// Week3-3-1.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
+#include <set>
+#include <string>
+#include <vector>
 #include <iostream>
+#include <algorithm>
+using namespace std;
 
-int main()
-{
-    std::cout << "Hello World!\n";
+bool toLow(string a, string b) {
+	for (char& j : a)
+		j = tolower(j);
+	for (char& j : b)
+		j = tolower(j);
+	return (a < b);
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
+class SortedStrings
+{
+public:
+	SortedStrings();
+	~SortedStrings();
+	void AddString(const string& s) {
+		values.push_back(s);
+		sort(begin(values), end(values), toLow);
+	}
+	vector<string>GetSortedStrings() { return values; }
+private:
+	vector<string> values;
+};
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+
+SortedStrings::SortedStrings()
+{
+}
+
+SortedStrings::~SortedStrings()
+{
+}
+
+void PrintSortedString(SortedStrings& strings) {
+	for (const string& i : strings.GetSortedStrings())
+		cout << i << ' ';
+	cout << endl;
+}
+int main()
+{
+	SortedStrings arr;
+	arr.AddString("first");
+	arr.AddString("third");
+	arr.AddString("second");
+	PrintSortedString(arr);
+	arr.AddString("second");
+	PrintSortedString(arr);
+}
